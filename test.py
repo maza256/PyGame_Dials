@@ -1,5 +1,6 @@
 #!/usr/bin/python
 from gui import *
+from random import randint
 
 #create a screen to draw on
 #(Horizontal Resolution, Vertical Resolution, Red Fill Value, Green Fill Value, Blue Fill Value)
@@ -13,6 +14,8 @@ speed = Specific_Dial(320,0,160,160, 'resources/percentage.png')
 temp = Specific_Dial(480,0,160,160, 'resources/temperature.png')
 ambPressure = Specific_Dial(640,0,160,160, 'resources/pressure.png')
 
+clock = pygame.time.Clock()
+
 # Main program loop.
 while 1:
     for event in pygame.event.get():
@@ -21,12 +24,14 @@ while 1:
             sys.exit()   # end program.
     #Delay 100ms
 
+    clock.tick(5)
+
 #Temporary default values, to be replace with calculations and data reads
-    throttle_demand = 0
-    pressure_reading = 0
-    n1_speed = 0
-    temp_reading = 0
-    ambient_pressure = 0
+    throttle_demand = randint(0,100)
+    pressure_reading = randint(0,100)
+    n1_speed = randint(0,100)
+    temp_reading = randint(0,100)
+    ambient_pressure = randint(0,100)
 
     #Call to update all the dials with the new readings
     throttle.update(screen, throttle_demand)

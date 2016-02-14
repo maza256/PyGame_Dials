@@ -49,7 +49,7 @@ class Dial:
        self.image = image
        self.frameImage = frameImage
        self.dial = pygame.Surface(self.frameImage.get_rect()[2:4])
-       self.dial.fill(0xFFFF00)
+       self.dial.fill((255,255,0))
        if(w==0):
           w = self.frameImage.get_rect()[2]
        if(h==0):
@@ -92,8 +92,8 @@ class Dial:
         targetHeight = tmpImage.get_rect()[3]
 
         imageOut = pygame.Surface((targetWidth, targetHeight))
-        imageOut.fill(0xFFFF00)
-        imageOut.set_colorkey(0xFFFF00)
+        imageOut.fill((255,255,0))
+        imageOut.set_colorkey((255,255,0))
         imageOut.blit(tmpImage,(0,0), pygame.Rect( imageCentreX-targetWidth/2,imageCentreY-targetHeight/2, targetWidth, targetHeight ) )
         return imageOut
 
@@ -110,18 +110,18 @@ class Dial:
         needleW = w + 2*math.sqrt(oX*oX)
         needleH = h + 2*math.sqrt(oY*oY)
         imageOut = pygame.Surface((needleW, needleH))
-        imageOut.fill(0xFFFF00)
-        imageOut.set_colorkey(0xFFFF00)
+        imageOut.fill((255,255,0))
+        imageOut.set_colorkey((255,255,0))
         imageOut.blit(image, (needleW/2-w/2+oX, needleH/2-h/2+oY), pygame.Rect(x,y,w,h))
         return imageOut
 
     def overlay(self, image, x, y, r=0):
         """
-        Overlays one image on top of another using 0xFFFF00 (Yellow) as the overlay colour.
+        Overlays one image on top of another using (255,255,0) (Yellow) as the overlay colour.
         """
         x -= (image.get_rect()[2] - self.dial.get_rect()[2])/2
         y -= (image.get_rect()[3] - self.dial.get_rect()[3])/2
-        image.set_colorkey(0xFFFF00)
+        image.set_colorkey((255,255,0))
         self.dial.blit(image, (x,y))
 
 class Generic(Dial):
@@ -150,7 +150,7 @@ class Generic(Dial):
         if iconLayer:
           self.overlay(iconLayer[0],iconLayer[1],iconLayer[2])
         self.overlay(tmpImage, 0, 0)
-        self.dial.set_colorkey(0xFFFF00)
+        self.dial.set_colorkey((255,255,0))
         screen.blit( pygame.transform.scale(self.dial,(self.w,self.h)), self.pos )
 
 class Specific_Dial(Generic):
