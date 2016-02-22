@@ -9,7 +9,7 @@ RED = (255, 0, 0)
 LIGHT_BLUE = (0, 100, 255)
 #create a screen to draw on
 #(Horizontal Resolution, Vertical Resolution, Red Fill Value, Green Fill Value, Blue Fill Value)
-screen = screen_init(800, 480, (BACKGROUND_COLOUR))
+screen = screen_init(800, 480, BACKGROUND_COLOUR)
 DIAL_WIDTH = 200
 DIAL_HEIGHT = 240
 

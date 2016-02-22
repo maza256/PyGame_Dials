@@ -1,0 +1,46 @@
+#!/usr/bin/python
+from gui import *
+from random import randint
+
+def toPercent(value, range)
+    return (value/range * 100)
+
+#create a screen to draw on
+#(Horizontal Resolution, Vertical Resolution, Red Fill Value, Green Fill Value, Blue Fill Value)
+screen = screen_init(800, 480, 55,55,55)
+
+# Initialise Dials.
+#(X Co-od, Y Co-od, Width, Heigth, image resource)
+throttle = Specific_Dial(0,0,160,160, 'resources/percentage.png')
+pressure = Specific_Dial(160,0,160,160,'resources/pressure.png')
+speed = Specific_Dial(320,0,160,160, 'resources/percentage.png')
+temp = Specific_Dial(480,0,160,160, 'resources/temperature.png')
+ambPressure = Specific_Dial(640,0,160,160, 'resources/pressure.png')
+
+clock = pygame.time.Clock()
+
+# Main program loop.
+while 1:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            print "Exiting...."
+            sys.exit()   # end program.
+    #Delay 100ms
+
+    clock.tick(5)
+
+#Temporary default values, to be replace with calculations and data reads
+    throttle_demand = randint(0,100)
+    pressure_reading = randint(0,100)
+    n1_speed = randint(0,100)
+    temp_reading = randint(0,100)
+    ambient_pressure = randint(0,100)
+
+    #Call to update all the dials with the new readings
+    throttle.update(screen, throttle_demand)
+    pressure.update(screen, pressure_reading)
+    speed.update(screen, n1_speed)
+    temp.update(screen, temp_reading)
+    ambPressure.update(screen, ambient_pressure)
+    #Call to redraw the screen to show the updates
+    pygame.display.update()
