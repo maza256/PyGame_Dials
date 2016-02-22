@@ -63,16 +63,27 @@ chan_Rect.centery = 195
 
 test = True
 label = None
+counter = 0
+
 # Main program loop.
 while 1:
+    #Check if close button has been pressed
     for event in pygame.event.get():
         if event.type == QUIT:
             print "Exiting...."
             sys.exit()   # end program.
+    #Second test for quitting in fullscreen
+    if pygame.mouse.get_pressed()[0]:
+        counter = counter + 1
+        print counter
+        if counter > 10:
+            print "Mouse Exit..."
+            sys.exit() #end program
+    
 
     #Sets FPS, number of times this will run per second.
     #Lower number is slower
-    clock.tick(1)
+    clock.tick(5)
 
 
     #Demo of how to activate the warning notices, simply switching on and off

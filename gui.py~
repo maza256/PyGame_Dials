@@ -179,10 +179,10 @@ class Specific_Dial(Generic):
         angleX -= 135
         Generic.update(self, screen, angleX, (self.icon, 0, 100))
 
-def screen_init(Xres = 800, Yres = 480, R=55, G=55, B=55):
+def screen_init(Xres = 800, Yres = 480, BACKGROUND_COLOUR=(55, 55, 55)):
     pygame.init()
     # Initialise screen.
     screen = pygame.display.set_mode((Xres, Yres))
-    screen.fill((R, G, B))
+    screen.fill(BACKGROUND_COLOUR)
     return screen
 
