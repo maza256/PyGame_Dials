@@ -57,24 +57,21 @@ i_warning_on        = pygame.image.load('resources/warning_on.png')
 i_warning_off       = pygame.image.load('resources/warning_off.png')
 i_extinguish_on     = pygame.image.load('resources/extinguisher_on.png')
 i_extinguish_off    = pygame.image.load('resources/extinguisher_off.png')
-i_fuelpump_on       = pygame.image.load('resources/fuel_pumps_on.png')
-i_fuelpump_off      = pygame.image.load('resources/fuel_pumps_off.png')
-i_flameout_on       = pygame.image.load('resources/flameout_on.png')
-i_flameout_off      = pygame.image.load('resources/flameout_off.png')
-i_vibration_on      = pygame.image.load('resources/vibration_on.png')
-i_vibration_off    = pygame.image.load('resources/vibration_off.png')
-i_surge_on          = pygame.image.load('resources/surge_on.png')
-i_surge_off         = pygame.image.load('resources/surge_off.png')
+i_shaftbreak_on     = pygame.image.load('resources/shaftbreak_on.png')
+i_shaftbreak_off    = pygame.image.load('resources/shaftbreak_off.png')
+i_thrustreverse_on  = pygame.image.load('resources/thrustreverse_on.png')
+i_thrustreverse_off = pygame.image.load('resources/thrustreverse_off.png')
 i_ice_on            = pygame.image.load('resources/ice_on.png')
 i_ice_off           = pygame.image.load('resources/ice_off.png')
 
 # Initialise Dials.
 #(X Co-od, Y Co-od, Width, Heigth, image resource)
 throttle = Specific_Dial(0,0,DIAL_WIDTH, DIAL_HEIGHT, 'resources/percentage.png')
-pressure = Specific_Dial(0,240,DIAL_WIDTH, DIAL_HEIGHT,'resources/pressure.png')
+pressure = Specific_Dial(0,240,DIAL_WIDTH, DIAL_HEIGHT,'resources/percentage.png')
 speed = Specific_Dial(200,240,DIAL_WIDTH, DIAL_HEIGHT, 'resources/percentage.png')
-temp = Specific_Dial(400,240,DIAL_WIDTH, DIAL_HEIGHT, 'resources/temperature.png')
-ambPressure = Specific_Dial(600,240,DIAL_WIDTH, DIAL_HEIGHT, 'resources/pressure.png')
+temp = Specific_Dial(400,240,DIAL_WIDTH, DIAL_HEIGHT, 'resources/percentage.png')
+ambPressure = Specific_Dial(600,240,DIAL_WIDTH, DIAL_HEIGHT, 'resources/percentage.png')
+sixth_dial = Specific_Dial(200,0, DIAL_WIDTH, DIAL_HEIGHT, 'resources/percentage.png')
 clock = pygame.time.Clock()
 
 #Font for text
@@ -82,21 +79,19 @@ myFont = pygame.font.SysFont("monospace", 36)
 myFont.set_bold(True)
 
 #Set locations for each of the warning panel images. All off to begin with.
-screen.blit(i_warning_off,(205, 5))
-screen.blit(i_extinguish_off,(400, 5))
-screen.blit(i_flameout_off, (205, 164))
-screen.blit(i_fuelpump_off,(600, 5))
-screen.blit(i_vibration_off,(205, 85))
-screen.blit(i_surge_off,(400, 85))
+screen.blit(i_warning_off,(400, 5))
+screen.blit(i_extinguish_off,(400,164))
+screen.blit(i_shaftbreak_off, (400, 85))
+screen.blit(i_thrustreverse_off, (600, 164))
 screen.blit(i_ice_off,(600, 85))
 
 #Label to display Channel A and Channel B
-chanA = myFont.render("Channel A", 5, GREEN, BACKGROUND_COLOUR)
-chanB = myFont.render("Channel B", 1, LIGHT_BLUE, BACKGROUND_COLOUR)
+chanA = myFont.render("Chan A", 5, GREEN, BACKGROUND_COLOUR)
+chanB = myFont.render("Chan B", 1, LIGHT_BLUE, BACKGROUND_COLOUR)
 
 chan_Rect = chanA.get_rect()
-chan_Rect.centerx = 520
-chan_Rect.centery = 195
+chan_Rect.centerx = 700
+chan_Rect.centery = 20
 
 test = True
 label = None
@@ -128,7 +123,7 @@ while 1:
 #        screen.blit(i_warning_on,(205,5))
         test = False
     else:
-	screen.blit(i_warning_off,(205,5))
+	screen.blit(i_warning_off,(400,5))
         eec_off()
 	test = True
     
@@ -143,13 +138,14 @@ while 1:
     n1_speed = randint(0,100)
     temp_reading = randint(0,100)
     ambient_pressure = randint(0,100)
-    
+    sixth_dial_read = randint(0, 100)
+
     throt_dem = myFont.render(str(throttle_demand), 5, GREEN, BACKGROUND_COLOUR)
     press_read = myFont.render(str(pressure_reading), 5, GREEN, BACKGROUND_COLOUR)
     n1_sped = myFont.render(str(n1_speed), 5, GREEN, BACKGROUND_COLOUR)
     temp_read = myFont.render(str(temp_reading), 5, GREEN, BACKGROUND_COLOUR)
     amb_press = myFont.render(str(ambient_pressure), 5, GREEN, BACKGROUND_COLOUR)
-    
+    six_dial = myFont.render(str(sixth_dial_read), 5, GREEN, BACKGROUND_COLOUR)
 
 
     #Call to update all the dials with the new readings
@@ -163,5 +159,7 @@ while 1:
     screen.blit(temp_read, (475, 430))
     ambPressure.update(screen, ambient_pressure)
     screen.blit(amb_press, (675, 430))
+    sixth_dial.update(screen, sixth_dial_read)
+    screen.blit(six_dial, (275, 190))
     #Call to redraw the screen to show the updates
     pygame.display.update()
