@@ -52,8 +52,6 @@ def eec_off():
     time.sleep(1)
     dimmer.undim()
 
-
-
 #Load in all the images that will be utilised for the warning panel
 i_warning_on        = pygame.image.load('resources/warning_on.png')
 i_warning_off       = pygame.image.load('resources/warning_off.png')
@@ -145,12 +143,25 @@ while 1:
     n1_speed = randint(0,100)
     temp_reading = randint(0,100)
     ambient_pressure = randint(0,100)
+    
+    throt_dem = myFont.render(str(throttle_demand), 5, GREEN, BACKGROUND_COLOUR)
+    press_read = myFont.render(str(pressure_reading), 5, GREEN, BACKGROUND_COLOUR)
+    n1_sped = myFont.render(str(n1_speed), 5, GREEN, BACKGROUND_COLOUR)
+    temp_read = myFont.render(str(temp_reading), 5, GREEN, BACKGROUND_COLOUR)
+    amb_press = myFont.render(str(ambient_pressure), 5, GREEN, BACKGROUND_COLOUR)
+    
+
 
     #Call to update all the dials with the new readings
     throttle.update(screen, throttle_demand)
+    screen.blit(throt_dem, (75, 190))
     pressure.update(screen, pressure_reading)
+    screen.blit(press_read, (75, 430))
     speed.update(screen, n1_speed)
+    screen.blit(n1_sped, (275, 430))
     temp.update(screen, temp_reading)
+    screen.blit(temp_read, (475, 430))
     ambPressure.update(screen, ambient_pressure)
+    screen.blit(amb_press, (675, 430))
     #Call to redraw the screen to show the updates
     pygame.display.update()
