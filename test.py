@@ -1,17 +1,56 @@
 #!/usr/bin/python
 from gui import *
 from random import randint
-
+import time
 BACKGROUND_COLOUR = (55, 55, 55)
 GREEN = (0, 255,0)
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 LIGHT_BLUE = (0, 100, 255)
+
 #create a screen to draw on
 #(Horizontal Resolution, Vertical Resolution, Red Fill Value, Green Fill Value, Blue Fill Value)
 screen = screen_init(800, 480, (BACKGROUND_COLOUR))
 DIAL_WIDTH = 200
 DIAL_HEIGHT = 240
+
+class Dimmer:
+    def __init__(self, keepalive=0):
+        self.keepalive=keepalive
+        if self.keepalive:
+            self.buffer=pygame.Surface(pygame.display.get_surface().get_size())
+        else:
+            self.buffer=None
+        
+    def dim(self, darken_factor=64, color_filter=(0,0,0)):
+        if not self.keepalive:
+            self.buffer=pygame.Surface(pygame.display.get_surface().get_size())
+        self.buffer.blit(pygame.display.get_surface(),(0,0))
+        if darken_factor>0:
+            darken=pygame.Surface(pygame.display.get_surface().get_size())
+            darken.fill(color_filter)
+            darken.set_alpha(darken_factor)
+            # safe old clipping rectangle...
+            old_clip=pygame.display.get_surface().get_clip()
+            # ..blit over entire screen...
+            pygame.display.get_surface().blit(darken,(0,0))
+            pygame.display.flip()
+            # ... and restore clipping
+            pygame.display.get_surface().set_clip(old_clip)
+
+    def undim(self):
+        if self.buffer:
+            pygame.display.get_surface().blit(self.buffer,(0,0))
+            pygame.display.flip()
+            if not self.keepalive:
+                self.buffer=None
+
+
+def eec_off():
+    dimmer = Dimmer(keepalive=1)
+    dimmer.dim(darken_factor=128, color_filter=(0,0,0))
+    time.sleep(1)
+    dimmer.undim()
 
 
 
@@ -88,11 +127,12 @@ while 1:
 
     #Demo of how to activate the warning notices, simply switching on and off
     if test:
-        screen.blit(i_warning_on,(205,5))
+#        screen.blit(i_warning_on,(205,5))
         test = False
     else:
-        screen.blit(i_warning_off,(205,5))
-        test = True
+	screen.blit(i_warning_off,(205,5))
+        eec_off()
+	test = True
     
     if test:
        screen.blit(chanA, chan_Rect)
