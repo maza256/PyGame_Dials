@@ -53,6 +53,7 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
 	set_val = int(set_val)            # cast Resistance as integer
 
         return set_val
+
 # change these as desired - they're the pins connected from the
 # SPI port on the ADC to the Cobbler
 SPICLK = 18
@@ -232,7 +233,7 @@ while 1:
 
 
 #algorithm code goes here
-
+   
 
     #Call to update all the dials with the new readings
     throttle.update(screen, throttle_demand)
