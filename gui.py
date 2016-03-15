@@ -182,7 +182,7 @@ class Specific_Dial(Generic):
 def screen_init(Xres = 800, Yres = 480, BACKGROUND_COLOUR=(55, 55, 55)):
     pygame.init()
     # Initialise screen.
-    screen = pygame.display.set_mode((Xres, Yres)) #, pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((Xres, Yres), pygame.FULLSCREEN)
     screen.fill(BACKGROUND_COLOUR)
     return screen
 
